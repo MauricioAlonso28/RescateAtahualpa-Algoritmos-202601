@@ -119,8 +119,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="FormCreditos.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="FormInstrucciones.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="FormRanking.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="FormSalir.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MyForm.h" />
     <ClInclude Include="Entidad.h" />
+    <ClInclude Include="PantallaCargaInicial.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Personaje.h" />
     <ClInclude Include="Cusi.h" />
     <ClInclude Include="Enemigo.h" />
@@ -143,8 +158,13 @@
     <ClInclude Include="FormNivel3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FormCreditos.cpp" />
+    <ClCompile Include="FormInstrucciones.cpp" />
+    <ClCompile Include="FormRanking.cpp" />
+    <ClCompile Include="FormSalir.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Entidad.cpp" />
+    <ClCompile Include="PantallaCargaInicial.cpp" />
     <ClCompile Include="Personaje.cpp" />
     <ClCompile Include="Cusi.cpp" />
     <ClCompile Include="Enemigo.cpp" />
@@ -165,6 +185,23 @@
     <ClCompile Include="FormNivel1.cpp" />
     <ClCompile Include="FormNivel2.cpp" />
     <ClCompile Include="FormNivel3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormCreditos.resx">
+      <DependentUpon>FormCreditos.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInstrucciones.resx">
+      <DependentUpon>FormInstrucciones.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRanking.resx">
+      <DependentUpon>FormRanking.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSalir.resx">
+      <DependentUpon>FormSalir.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PantallaCargaInicial.resx">
+      <DependentUpon>PantallaCargaInicial.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

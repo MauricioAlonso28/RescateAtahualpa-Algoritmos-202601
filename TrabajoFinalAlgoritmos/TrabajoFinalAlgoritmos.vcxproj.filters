@@ -84,6 +84,21 @@
     <ClInclude Include="FormNivel3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PantallaCargaInicial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FormSalir.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FormCreditos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FormInstrucciones.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FormRanking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyForm.cpp">
@@ -150,6 +165,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FormNivel3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PantallaCargaInicial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormSalir.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormCreditos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormInstrucciones.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormRanking.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

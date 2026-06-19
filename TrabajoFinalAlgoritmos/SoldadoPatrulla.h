@@ -1,27 +1,22 @@
 #pragma once
 #include "Enemigo.h"
 #include "Enums.h"
+#include <string>
+using namespace System::Drawing;
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class SoldadoPatrulla : public Enemigo {
+private:
+	EjePatrulla ejePatrulla;
+	int sentido;
 
-	using namespace System;
-	using namespace System::Drawing;
+public:
+	SoldadoPatrulla(int x, int y, string rutaSprite, int velocidad, EjePatrulla eje);
 
-	// Enemigo que patrulla en linea recta sobre un eje.
-	public ref class SoldadoPatrulla : public Enemigo
-	{
-	private:
-		EjePatrulla ejePatrulla;
-		int sentido;
+	void mover();
 
-	public:
-		SoldadoPatrulla(int x, int y, Bitmap^ sprite, int velocidad, EjePatrulla eje);
-
-		virtual void mover() override;
-
-		EjePatrulla getEjePatrulla();
-		void setEjePatrulla(EjePatrulla e);
-		int getSentido();
-		void setSentido(int s);
-	};
-}
+	EjePatrulla getEjePatrulla();
+	void setEjePatrulla(EjePatrulla e);
+	int getSentido();
+	void setSentido(int s);
+};

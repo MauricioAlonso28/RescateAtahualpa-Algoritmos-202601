@@ -1,4 +1,5 @@
 #pragma once
+#include "Juego.h"
 
 namespace TrabajoFinalAlgoritmos {
 
@@ -9,14 +10,10 @@ namespace TrabajoFinalAlgoritmos {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	ref class Juego;
-
-	// Form base de la pantalla de juego: HUD, bucle (timer) y entrada por teclado.
-	// cargarNivel() y mostrarPreguntaReflexiva() son virtuales (polimorfismo).
 	public ref class FormControlJuego : public System::Windows::Forms::Form
 	{
 	private:
-		Juego^ juego;
+		Juego* juego;
 		System::Windows::Forms::Timer^ timerJuego;
 		Label^ lblVidas;
 		Label^ lblPuntaje;
@@ -24,7 +21,7 @@ namespace TrabajoFinalAlgoritmos {
 		System::ComponentModel::Container^ components;
 
 	public:
-		FormControlJuego(Juego^ j)
+		FormControlJuego(Juego* j)
 		{
 			this->juego = j;
 			InitializeComponent();
@@ -33,7 +30,7 @@ namespace TrabajoFinalAlgoritmos {
 		virtual void cargarNivel();
 		virtual void mostrarPreguntaReflexiva();
 		void actualizarHUD();
-		Juego^ getJuego();
+		Juego* getJuego();
 
 	protected:
 		~FormControlJuego()
@@ -58,35 +55,25 @@ namespace TrabajoFinalAlgoritmos {
 			this->lblObjetos = gcnew Label();
 			this->timerJuego = gcnew System::Windows::Forms::Timer(this->components);
 			this->SuspendLayout();
-			//
-			// lblVidas
-			//
+
 			this->lblVidas->AutoSize = true;
 			this->lblVidas->Location = System::Drawing::Point(12, 9);
 			this->lblVidas->Name = L"lblVidas";
 			this->lblVidas->Text = L"Vidas: 3";
-			//
-			// lblPuntaje
-			//
+
 			this->lblPuntaje->AutoSize = true;
 			this->lblPuntaje->Location = System::Drawing::Point(12, 30);
 			this->lblPuntaje->Name = L"lblPuntaje";
 			this->lblPuntaje->Text = L"Puntaje: 0";
-			//
-			// lblObjetos
-			//
+
 			this->lblObjetos->AutoSize = true;
 			this->lblObjetos->Location = System::Drawing::Point(12, 51);
 			this->lblObjetos->Name = L"lblObjetos";
 			this->lblObjetos->Text = L"Objetos: 0";
-			//
-			// timerJuego
-			//
+
 			this->timerJuego->Interval = 30;
 			this->timerJuego->Tick += gcnew System::EventHandler(this, &FormControlJuego::timerJuego_Tick);
-			//
-			// FormControlJuego
-			//
+
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(800, 600);

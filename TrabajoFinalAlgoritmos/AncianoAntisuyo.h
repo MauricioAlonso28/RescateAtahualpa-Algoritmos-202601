@@ -1,27 +1,21 @@
 #pragma once
 #include "Aliado.h"
+#include "Cusi.h"
+#include <string>
+using namespace System::Drawing;
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class AncianoAntisuyo : public Aliado {
+private:
+	bool nivelesPreviosCompletos;
 
-	using namespace System;
-	using namespace System::Drawing;
+public:
+	AncianoAntisuyo(int x, int y, string rutaSprite, string frase);
 
-	ref class Cusi;
+	void revelarse();
+	bool puedeActivarse(Cusi* c);
+	void interactuar(Cusi* c);
 
-	// Anciano del Antisuyo: solo se revela si los niveles previos estan completos.
-	public ref class AncianoAntisuyo : public Aliado
-	{
-	private:
-		bool nivelesPreviosCompletos;
-
-	public:
-		AncianoAntisuyo(int x, int y, Bitmap^ sprite, String^ frase);
-
-		void revelarse();
-		virtual bool puedeActivarse(Cusi^ c) override;
-		virtual void interactuar(Cusi^ c) override;
-
-		bool getNivelesPreviosCompletos();
-		void setNivelesPreviosCompletos(bool n);
-	};
-}
+	bool getNivelesPreviosCompletos();
+	void setNivelesPreviosCompletos(bool n);
+};

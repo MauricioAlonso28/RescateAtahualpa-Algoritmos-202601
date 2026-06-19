@@ -4,10 +4,9 @@
 namespace TrabajoFinalAlgoritmos {
 
 	using namespace System;
-	using namespace System::Drawing;
 	using namespace System::Windows::Forms;
+	using namespace System::Drawing;
 
-	// Nivel 3: selva. Hay un tiempo limite mostrado en una barra de progreso.
 	public ref class FormNivel3 : public FormControlJuego
 	{
 	private:
@@ -16,7 +15,7 @@ namespace TrabajoFinalAlgoritmos {
 		int tiempoRestante;
 
 	public:
-		FormNivel3(Juego^ j) : FormControlJuego(j)
+		FormNivel3(Juego* j) : FormControlJuego(j)
 		{
 			// anadir logica
 		}

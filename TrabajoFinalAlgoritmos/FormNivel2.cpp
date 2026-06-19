@@ -2,18 +2,15 @@
 
 namespace TrabajoFinalAlgoritmos {
 
-	void FormNivel2::cargarNivel()
-	{
+	void FormNivel2::cargarNivel() {
 		// anadir logica
 	}
 
-	void FormNivel2::mostrarPreguntaReflexiva()
-	{
+	void FormNivel2::mostrarPreguntaReflexiva() {
 		// anadir logica
 	}
 
-	void FormNivel2::aplicarLentitudNieve()
-	{
+	void FormNivel2::aplicarLentitudNieve() {
 		// anadir logica
 	}
 }

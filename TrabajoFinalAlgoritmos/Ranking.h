@@ -1,22 +1,17 @@
 #pragma once
+#include <string>
+#include <vector>
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class Ranking {
+private:
+	vector<string> nombres;
+	vector<int> puntajes;
 
-	using namespace System;
-	using namespace System::Collections::Generic;
+public:
+	void agregar(string nombre, int puntos);
+	void mostrarTop();
 
-	// Tabla de puntajes (nombres y puntajes en paralelo).
-	public ref class Ranking
-	{
-	private:
-		List<String^>^ nombres;
-		List<int>^ puntajes;
-
-	public:
-		void agregar(String^ nombre, int puntos);
-		void mostrarTop();
-
-		List<String^>^ getNombres();
-		List<int>^ getPuntajes();
-	};
-}
+	vector<string> getNombres();
+	vector<int> getPuntajes();
+};

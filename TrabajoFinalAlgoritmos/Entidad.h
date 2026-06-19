@@ -1,39 +1,35 @@
 #pragma once
+#include <string>
+using namespace System::Drawing;
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class Entidad {
+private:
+	int x;
+	int y;
+	int ancho;
+	int alto;
+	string rutaSprite;
+	bool visible;
 
-	using namespace System;
-	using namespace System::Drawing;
+public:
+	Entidad(int x, int y, string rutaSprite);
+	virtual ~Entidad();
 
-	// Clase base de todo lo que aparece en pantalla (posicion, tamanio y sprite).
-	public ref class Entidad
-	{
-	private:
-		int x;
-		int y;
-		int ancho;
-		int alto;
-		Bitmap^ sprite;
-		bool visible;
+	virtual void dibujar(Graphics^ g);
+	bool colisionaCon(Entidad* otra);
+	Rectangle getRectangulo();
 
-	public:
-		Entidad(int x, int y, Bitmap^ sprite);
-
-		virtual void dibujar(Graphics^ g);
-		bool colisionaCon(Entidad^ otra);
-		Rectangle getRectangulo();
-
-		int getX();
-		void setX(int x);
-		int getY();
-		void setY(int y);
-		int getAncho();
-		void setAncho(int a);
-		int getAlto();
-		void setAlto(int a);
-		Bitmap^ getSprite();
-		void setSprite(Bitmap^ s);
-		bool getVisible();
-		void setVisible(bool v);
-	};
-}
+	int getX();
+	void setX(int x);
+	int getY();
+	void setY(int y);
+	int getAncho();
+	void setAncho(int a);
+	int getAlto();
+	void setAlto(int a);
+	string getRutaSprite();
+	void setRutaSprite(string s);
+	bool getVisible();
+	void setVisible(bool v);
+};

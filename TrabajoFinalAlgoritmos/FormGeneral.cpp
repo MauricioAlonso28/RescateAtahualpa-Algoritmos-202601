@@ -2,35 +2,29 @@
 
 namespace TrabajoFinalAlgoritmos {
 
-	void FormGeneral::iniciarPartida()
-	{
+	void FormGeneral::iniciarPartida() {
 		// anadir logica
 	}
 
-	void FormGeneral::mostrarCinematicaIntro()
-	{
+	void FormGeneral::mostrarCinematicaIntro() {
 		// anadir logica
 	}
 
-	void FormGeneral::mostrarInstrucciones()
-	{
+	void FormGeneral::mostrarInstrucciones() {
 		// anadir logica
 	}
 
-	void FormGeneral::mostrarCreditos()
-	{
+	void FormGeneral::mostrarCreditos() {
 		// anadir logica
 	}
 
-	void FormGeneral::mostrarRanking()
-	{
+	void FormGeneral::mostrarRanking() {
 		// anadir logica
 	}
 
-	void FormGeneral::mostrarPantallaFinal(bool gano)
-	{
+	void FormGeneral::mostrarPantallaFinal(bool gano) {
 		// anadir logica
 	}
 
-	Juego^ FormGeneral::getJuego() { return juego; }
+	Juego* FormGeneral::getJuego() { return juego; }
 }

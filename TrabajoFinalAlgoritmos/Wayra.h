@@ -1,27 +1,21 @@
 #pragma once
 #include "Aliado.h"
+#include "Cusi.h"
+#include <string>
+using namespace System::Drawing;
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class Wayra : public Aliado {
+private:
+	bool senalDeRimaq;
 
-	using namespace System;
-	using namespace System::Drawing;
+public:
+	Wayra(int x, int y, string rutaSprite, string frase);
 
-	ref class Cusi;
+	void recibirSenal();
+	bool puedeActivarse(Cusi* c);
+	void interactuar(Cusi* c);
 
-	// Wayra: aliado que se activa al recibir la senial de Rimaq.
-	public ref class Wayra : public Aliado
-	{
-	private:
-		bool senalDeRimaq;
-
-	public:
-		Wayra(int x, int y, Bitmap^ sprite, String^ frase);
-
-		void recibirSenal();
-		virtual bool puedeActivarse(Cusi^ c) override;
-		virtual void interactuar(Cusi^ c) override;
-
-		bool getSenalDeRimaq();
-		void setSenalDeRimaq(bool s);
-	};
-}
+	bool getSenalDeRimaq();
+	void setSenalDeRimaq(bool s);
+};

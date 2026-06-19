@@ -2,13 +2,11 @@
 
 namespace TrabajoFinalAlgoritmos {
 
-	void FormNivel1::cargarNivel()
-	{
+	void FormNivel1::cargarNivel() {
 		// anadir logica
 	}
 
-	void FormNivel1::mostrarPreguntaReflexiva()
-	{
+	void FormNivel1::mostrarPreguntaReflexiva() {
 		// anadir logica
 	}
 }

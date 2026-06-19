@@ -1,29 +1,23 @@
 #pragma once
 #include "SoldadoPatrulla.h"
+#include "Cusi.h"
+#include <string>
+using namespace System::Drawing;
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class GuardianEspecial : public SoldadoPatrulla {
+private:
+	int radioVigilancia;
+	int velocidadPersecucion;
 
-	using namespace System;
-	using namespace System::Drawing;
+public:
+	GuardianEspecial(int x, int y, string rutaSprite, int velocidad, EjePatrulla eje);
 
-	ref class Cusi;
+	void mover();
+	bool detecta(Cusi* c);
 
-	// Soldado especial: si detecta a Cusi lo persigue.
-	public ref class GuardianEspecial : public SoldadoPatrulla
-	{
-	private:
-		int radioVigilancia;
-		int velocidadPersecucion;
-
-	public:
-		GuardianEspecial(int x, int y, Bitmap^ sprite, int velocidad, EjePatrulla eje);
-
-		virtual void mover() override;
-		bool detecta(Cusi^ c);
-
-		int getRadioVigilancia();
-		void setRadioVigilancia(int r);
-		int getVelocidadPersecucion();
-		void setVelocidadPersecucion(int v);
-	};
-}
+	int getRadioVigilancia();
+	void setRadioVigilancia(int r);
+	int getVelocidadPersecucion();
+	void setVelocidadPersecucion(int v);
+};

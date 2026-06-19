@@ -1,32 +1,27 @@
 #pragma once
 #include "Entidad.h"
+#include <string>
+using namespace System::Drawing;
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class Cusi;
 
-	using namespace System;
-	using namespace System::Drawing;
+class Aliado : public Entidad {
+private:
+	string fraseClave;
+	int puntosInteraccion;
+	bool activado;
 
-	ref class Cusi;
+public:
+	Aliado(int x, int y, string rutaSprite, string frase);
 
-	// Base de los personajes aliados con los que Cusi puede interactuar.
-	public ref class Aliado : public Entidad
-	{
-	private:
-		String^ fraseClave;
-		int puntosInteraccion;
-		bool activado;
+	virtual bool puedeActivarse(Cusi* c);
+	virtual void interactuar(Cusi* c);
 
-	public:
-		Aliado(int x, int y, Bitmap^ sprite, String^ frase);
-
-		virtual bool puedeActivarse(Cusi^ c);
-		virtual void interactuar(Cusi^ c);
-
-		String^ getFraseClave();
-		void setFraseClave(String^ f);
-		int getPuntosInteraccion();
-		void setPuntosInteraccion(int p);
-		bool getActivado();
-		void setActivado(bool a);
-	};
-}
+	string getFraseClave();
+	void setFraseClave(string f);
+	int getPuntosInteraccion();
+	void setPuntosInteraccion(int p);
+	bool getActivado();
+	void setActivado(bool a);
+};

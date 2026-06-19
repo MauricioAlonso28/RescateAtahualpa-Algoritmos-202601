@@ -1,29 +1,23 @@
 #pragma once
 #include "Aliado.h"
+#include "Cusi.h"
+#include "Wayra.h"
+#include <string>
+using namespace System::Drawing;
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class Rimaq : public Aliado {
+private:
+	Entidad* puerta;
+	Wayra* wayra;
 
-	using namespace System;
-	using namespace System::Drawing;
+public:
+	Rimaq(int x, int y, string rutaSprite, string frase);
 
-	ref class Cusi;
-	ref class Wayra;
+	bool puedeActivarse(Cusi* c);
+	void interactuar(Cusi* c);
+	void abrirPaso();
 
-	// Rimaq: aliado que abre un paso (puerta) y avisa a Wayra.
-	public ref class Rimaq : public Aliado
-	{
-	private:
-		Entidad^ puerta;
-		Wayra^ wayra;
-
-	public:
-		Rimaq(int x, int y, Bitmap^ sprite, String^ frase);
-
-		virtual bool puedeActivarse(Cusi^ c) override;
-		virtual void interactuar(Cusi^ c) override;
-		void abrirPaso();
-
-		Entidad^ getPuerta();
-		void setPuerta(Entidad^ p);
-	};
-}
+	Entidad* getPuerta();
+	void setPuerta(Entidad* p);
+};

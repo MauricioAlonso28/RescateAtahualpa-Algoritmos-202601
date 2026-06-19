@@ -2,18 +2,15 @@
 
 namespace TrabajoFinalAlgoritmos {
 
-	void FormNivel3::cargarNivel()
-	{
+	void FormNivel3::cargarNivel() {
 		// anadir logica
 	}
 
-	void FormNivel3::mostrarPreguntaReflexiva()
-	{
+	void FormNivel3::mostrarPreguntaReflexiva() {
 		// anadir logica
 	}
 
-	void FormNivel3::decrementarTiempo()
-	{
+	void FormNivel3::decrementarTiempo() {
 		// anadir logica
 	}
 

@@ -1,32 +1,26 @@
 #pragma once
 #include "Enemigo.h"
+#include "Cusi.h"
+#include <string>
+using namespace System::Drawing;
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class CapitanEspanol : public Enemigo {
+private:
+	int radioDeteccion;
+	Cusi* objetivo;
+	bool bloqueado;
 
-	using namespace System;
-	using namespace System::Drawing;
+public:
+	CapitanEspanol(int x, int y, string rutaSprite, int velocidad);
 
-	ref class Cusi;
+	void mover();
+	double calcularDistancia(Cusi* c);
+	void quedarBloqueado();
 
-	// Capitan espaniol: persigue a Cusi dentro de su radio de deteccion.
-	public ref class CapitanEspanol : public Enemigo
-	{
-	private:
-		int radioDeteccion;
-		Cusi^ objetivo;
-		bool bloqueado;
-
-	public:
-		CapitanEspanol(int x, int y, Bitmap^ sprite, int velocidad);
-
-		virtual void mover() override;
-		double calcularDistancia(Cusi^ c);
-		void quedarBloqueado();
-
-		int getRadioDeteccion();
-		void setRadioDeteccion(int r);
-		Cusi^ getObjetivo();
-		void setObjetivo(Cusi^ c);
-		bool getBloqueado();
-	};
-}
+	int getRadioDeteccion();
+	void setRadioDeteccion(int r);
+	Cusi* getObjetivo();
+	void setObjetivo(Cusi* c);
+	bool getBloqueado();
+};

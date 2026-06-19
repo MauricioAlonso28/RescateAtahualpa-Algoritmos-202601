@@ -1,25 +1,19 @@
 #pragma once
 #include "Personaje.h"
+#include "Cusi.h"
+#include <string>
+using namespace System::Drawing;
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class Enemigo : public Personaje {
+private:
+	int puntosCastigo;
 
-	using namespace System;
-	using namespace System::Drawing;
+public:
+	Enemigo(int x, int y, string rutaSprite, int velocidad);
 
-	ref class Cusi;
+	virtual void alColisionar(Cusi* c);
 
-	// Base de todos los enemigos. Castiga a Cusi al colisionar.
-	public ref class Enemigo : public Personaje
-	{
-	private:
-		int puntosCastigo;
-
-	public:
-		Enemigo(int x, int y, Bitmap^ sprite, int velocidad);
-
-		virtual void alColisionar(Cusi^ c);
-
-		int getPuntosCastigo();
-		void setPuntosCastigo(int p);
-	};
-}
+	int getPuntosCastigo();
+	void setPuntosCastigo(int p);
+};

@@ -1,26 +1,21 @@
 #pragma once
 #include "Entidad.h"
+#include <string>
+using namespace System::Drawing;
+using namespace std;
 
-namespace TrabajoFinalAlgoritmos {
+class Personaje : public Entidad {
+private:
+	string nombre;
+	int velocidad;
 
-	using namespace System;
-	using namespace System::Drawing;
+public:
+	Personaje(int x, int y, string rutaSprite, int velocidad);
 
-	// Entidad que ademas tiene nombre y velocidad y se puede mover.
-	public ref class Personaje : public Entidad
-	{
-	private:
-		String^ nombre;
-		int velocidad;
+	virtual void mover();
 
-	public:
-		Personaje(int x, int y, Bitmap^ sprite, int velocidad);
-
-		virtual void mover();
-
-		String^ getNombre();
-		void setNombre(String^ n);
-		int getVelocidad();
-		void setVelocidad(int v);
-	};
-}
+	string getNombre();
+	void setNombre(string n);
+	int getVelocidad();
+	void setVelocidad(int v);
+};

@@ -9,9 +9,6 @@ namespace TrabajoFinalAlgoritmos {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Form basico inicial del proyecto.
-	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
@@ -36,9 +33,6 @@ namespace TrabajoFinalAlgoritmos {
 		void InitializeComponent(void)
 		{
 			this->SuspendLayout();
-			//
-			// MyForm
-			//
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(800, 600);

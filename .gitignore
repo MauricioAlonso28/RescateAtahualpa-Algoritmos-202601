@@ -1,0 +1,33 @@
+## Visual Studio / C++ (Windows Forms) ##
+
+# Carpetas de Visual Studio
+.vs/
+
+# Resultados de compilacion
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Bb]in/
+[Oo]bj/
+ipch/
+
+# Archivos intermedios y de salida
+*.obj
+*.pch
+*.pdb
+*.ilk
+*.idb
+*.exe
+*.dll
+*.lib
+*.exp
+*.tlog
+*.lastbuildstate
+*.log
+*.aps
+
+# Configuracion local del usuario (no compartir)
+*.user
+*.suo

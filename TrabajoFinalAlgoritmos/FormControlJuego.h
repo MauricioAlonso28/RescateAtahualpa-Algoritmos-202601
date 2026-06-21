@@ -50,26 +50,8 @@ namespace TrabajoFinalAlgoritmos {
 		void InitializeComponent(void)
 		{
 			this->components = gcnew System::ComponentModel::Container();
-			this->lblVidas = gcnew Label();
-			this->lblPuntaje = gcnew Label();
-			this->lblObjetos = gcnew Label();
 			this->timerJuego = gcnew System::Windows::Forms::Timer(this->components);
 			this->SuspendLayout();
-
-			this->lblVidas->AutoSize = true;
-			this->lblVidas->Location = System::Drawing::Point(12, 9);
-			this->lblVidas->Name = L"lblVidas";
-			this->lblVidas->Text = L"Vidas: 3";
-
-			this->lblPuntaje->AutoSize = true;
-			this->lblPuntaje->Location = System::Drawing::Point(12, 30);
-			this->lblPuntaje->Name = L"lblPuntaje";
-			this->lblPuntaje->Text = L"Puntaje: 0";
-
-			this->lblObjetos->AutoSize = true;
-			this->lblObjetos->Location = System::Drawing::Point(12, 51);
-			this->lblObjetos->Name = L"lblObjetos";
-			this->lblObjetos->Text = L"Objetos: 0";
 
 			this->timerJuego->Interval = 30;
 			this->timerJuego->Tick += gcnew System::EventHandler(this, &FormControlJuego::timerJuego_Tick);
@@ -77,9 +59,6 @@ namespace TrabajoFinalAlgoritmos {
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(800, 600);
-			this->Controls->Add(this->lblVidas);
-			this->Controls->Add(this->lblPuntaje);
-			this->Controls->Add(this->lblObjetos);
 			this->DoubleBuffered = true;
 			this->KeyPreview = true;
 			this->Name = L"FormControlJuego";
@@ -87,7 +66,6 @@ namespace TrabajoFinalAlgoritmos {
 			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &FormControlJuego::form_Paint);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &FormControlJuego::form_KeyDown);
 			this->ResumeLayout(false);
-			this->PerformLayout();
 		}
 #pragma endregion
 	};

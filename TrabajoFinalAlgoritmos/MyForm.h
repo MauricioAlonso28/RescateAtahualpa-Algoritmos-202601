@@ -3,12 +3,15 @@
 #include "FormRanking.h"
 #include "FormCreditos.h"
 #include "FormSalir.h"
+#include "FormNivel1.h"
+#include "FormHistoria.h"
 
 namespace TodoDelMenu {
 
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
+	using namespace System::Collections::Generic;
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
@@ -23,13 +26,13 @@ namespace TodoDelMenu {
 		{
 			InitializeComponent();
 			//
-			//TODO: agregar código de constructor aquí
+			//TODO: agregar cï¿½digo de constructor aquï¿½
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Limpiar los recursos que se estén usando.
+		/// Limpiar los recursos que se estï¿½n usando.
 		/// </summary>
 		~MyForm()
 		{
@@ -41,7 +44,7 @@ namespace TodoDelMenu {
 
 	private:
 		/// <summary>
-		/// Variable del diseñador necesaria.
+		/// Variable del diseï¿½ador necesaria.
 		/// </summary>
 		System::ComponentModel::Container^ components;
 		Label^ lblTitulo;
@@ -53,8 +56,8 @@ namespace TodoDelMenu {
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Método necesario para admitir el Diseñador. No se puede modificar
-		/// el contenido de este método con el editor de código.
+		/// Mï¿½todo necesario para admitir el Diseï¿½ador. No se puede modificar
+		/// el contenido de este mï¿½todo con el editor de cï¿½digo.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -67,7 +70,7 @@ namespace TodoDelMenu {
 			// Mejora visual
 			this->DoubleBuffered = true;
 
-			// Tamaño del formulario
+			// Tamaï¿½o del formulario
 			this->ClientSize = System::Drawing::Size(1366, 768);
 
 			// No redimensionar
@@ -77,7 +80,7 @@ namespace TodoDelMenu {
 			// Centrado
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 
-			// Nombre y título
+			// Nombre y tï¿½tulo
 			this->Name = L"MyForm";
 			this->Text = L"El Rescate de Atahualpa";
 
@@ -92,11 +95,11 @@ namespace TodoDelMenu {
 	{
 		this->SuspendLayout();
 
-		// Fondo del menú
+		// Fondo del menï¿½
 		this->BackgroundImage = Image::FromFile("img/pantallaMenuPrincipal.jpeg");
 		this->BackgroundImageLayout = ImageLayout::Stretch; //Estira la imagen para el formulario
 
-		// TÍTULO DEL JUEGO
+		// Tï¿½TULO DEL JUEGO
 		lblTitulo = gcnew Label();
 		lblTitulo->Text = L"EL RESCATE DE ATAHUALPA";
 		lblTitulo->Font = gcnew Drawing::Font("Bahnschrift", 42, FontStyle::Bold);
@@ -119,10 +122,10 @@ namespace TodoDelMenu {
 		btnJugar->Text = L"JUGAR";
 		btnInstrucciones->Text = L"INSTRUCCIONES";
 		btnRanking->Text = L"RANKING";
-		btnCreditos->Text = L"CRÉDITOS";
+		btnCreditos->Text = L"CRï¿½DITOS";
 		btnSalir->Text = L"SALIR";
 
-		// Tamaño
+		// Tamaï¿½o
 		btnJugar->Size = Drawing::Size(300, 50);
 		btnInstrucciones->Size = Drawing::Size(300, 50);
 		btnRanking->Size = Drawing::Size(300, 50);
@@ -145,6 +148,7 @@ namespace TodoDelMenu {
 
 		//Interaccion con los otros formularios
 
+		btnJugar->Click += gcnew EventHandler(this, &MyForm::btnJugar_Click);
 		btnSalir->Click += gcnew EventHandler(this, &MyForm::btnSalir_Click);
 		btnInstrucciones->Click += gcnew EventHandler(this, &MyForm::btnInstrucciones_Click);
 		btnRanking->Click += gcnew EventHandler(this, &MyForm::btnRanking_Click);
@@ -166,6 +170,29 @@ namespace TodoDelMenu {
 
 		//Jugar
 
+		System::Void btnJugar_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			// Historia del Nivel 1 (storyboard)
+			List<String^>^ historia = gcnew List<String^>();
+			historia->Add("img/n1_historia1");
+			historia->Add("img/n1_historia2");
+			historia->Add("img/n1_historia3");
+			historia->Add("img/n1_historia4");
+			historia->Add("img/n1_historia5");
+
+			this->Hide();
+
+			FormHistoria^ intro = gcnew FormHistoria(historia);
+			intro->ShowDialog();
+
+			// Escenario jugable
+			Juego* juego = new Juego();
+			TrabajoFinalAlgoritmos::FormNivel1^ nivel = gcnew TrabajoFinalAlgoritmos::FormNivel1(juego);
+			nivel->ShowDialog();
+			delete juego;
+
+			this->Show();
+		}
 
 		//Instrucciones
 

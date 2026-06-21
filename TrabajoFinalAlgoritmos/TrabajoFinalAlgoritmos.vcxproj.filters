@@ -21,6 +21,9 @@
     <ClInclude Include="MyForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FormHistoria.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Entidad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -102,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FormHistoria.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Entidad.cpp">

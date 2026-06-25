@@ -189,6 +189,7 @@ namespace TodoDelMenu {
 			Juego* juego = new Juego();
 			TrabajoFinalAlgoritmos::FormNivel1^ nivel = gcnew TrabajoFinalAlgoritmos::FormNivel1(juego);
 			nivel->ShowDialog();
+			delete nivel;
 			delete juego;
 
 			this->Show();

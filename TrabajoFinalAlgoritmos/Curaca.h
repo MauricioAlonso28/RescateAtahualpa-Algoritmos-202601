@@ -11,4 +11,5 @@ public:
 
 	bool puedeActivarse(Cusi* c);
 	void interactuar(Cusi* c);
+	void dibujar(Graphics^ g);
 };

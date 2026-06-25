@@ -126,6 +126,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Config.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="FormCreditos.h">
       <FileType>CppForm</FileType>

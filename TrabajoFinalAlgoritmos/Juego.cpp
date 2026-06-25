@@ -1,7 +1,28 @@
 #include "Juego.h"
+#include "Config.h"
+
+Juego::Juego() {
+	vector<string> sprites;
+	sprites.push_back(IMG_CUSI);
+	jugador = new Cusi(0, 0, sprites);
+
+	nivelActual = 1;
+	estado = EstadoJuego::Jugando;
+	ranking = new Ranking();
+	nombreJugador = "";
+}
+
+Juego::~Juego() {
+	if (jugador != nullptr) { delete jugador; jugador = nullptr; }
+	if (ranking != nullptr) { delete ranking; ranking = nullptr; }
+	for (size_t i = 0; i < niveles.size(); i++)
+		delete niveles[i];
+	niveles.clear();
+}
 
 void Juego::iniciar() {
-	// anadir logica
+	estado = EstadoJuego::Jugando;
+	nivelActual = 1;
 }
 
 void Juego::detectarColisiones() {
@@ -9,17 +30,15 @@ void Juego::detectarColisiones() {
 }
 
 void Juego::avanzarNivel() {
-	// anadir logica
+	nivelActual++;
 }
 
 bool Juego::verificarVictoria() {
-	// anadir logica
-	return false;
+	return estado == EstadoJuego::Victoria;
 }
 
 bool Juego::verificarDerrota() {
-	// anadir logica
-	return false;
+	return jugador != nullptr && jugador->getVidas() <= 0;
 }
 
 void Juego::calcularBonificaciones() {

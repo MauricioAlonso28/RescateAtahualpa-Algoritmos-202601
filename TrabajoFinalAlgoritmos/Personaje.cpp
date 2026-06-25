@@ -2,7 +2,8 @@
 
 Personaje::Personaje(int x, int y, string rutaSprite, int velocidad)
 	: Entidad(x, y, rutaSprite) {
-	// anadir logica
+	this->nombre = "";
+	this->velocidad = velocidad;
 }
 
 void Personaje::mover() {

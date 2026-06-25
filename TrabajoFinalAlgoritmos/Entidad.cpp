@@ -1,23 +1,32 @@
 #include "Entidad.h"
+#include "Config.h"
 
 Entidad::Entidad(int x, int y, string rutaSprite) {
-	// anadir logica
+	this->x = x;
+	this->y = y;
+	this->ancho = 0;
+	this->alto = 0;
+	this->rutaSprite = rutaSprite;
+	this->visible = true;
 }
 
 Entidad::~Entidad() {}
 
 void Entidad::dibujar(Graphics^ g) {
-	// anadir logica
+	if (!visible || rutaSprite.empty())
+		return;
+	Bitmap^ bmp = CacheImagenes::obtener(aStr(rutaSprite));
+	g->DrawImage(bmp, System::Drawing::Rectangle(x, y, ancho, alto));
 }
 
 bool Entidad::colisionaCon(Entidad* otra) {
-	// anadir logica
-	return false;
+	if (!visible || !otra->getVisible())
+		return false;
+	return getRectangulo().IntersectsWith(otra->getRectangulo());
 }
 
 Rectangle Entidad::getRectangulo() {
-	// anadir logica
-	return Rectangle();
+	return Rectangle(x, y, ancho, alto);
 }
 
 int Entidad::getX() { return x; }

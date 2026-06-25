@@ -1,17 +1,24 @@
 #include "Aliado.h"
+#include "Cusi.h"
+#include "Config.h"
 
 Aliado::Aliado(int x, int y, string rutaSprite, string frase)
 	: Entidad(x, y, rutaSprite) {
-	// anadir logica
+	this->fraseClave = frase;
+	this->puntosInteraccion = PTS_ALIADO;
+	this->activado = false;
 }
 
 bool Aliado::puedeActivarse(Cusi* c) {
-	// anadir logica
-	return false;
+	return !activado;
 }
 
 void Aliado::interactuar(Cusi* c) {
-	// anadir logica
+	if (activado)
+		return;
+	activado = true;
+	c->sumarPuntos(puntosInteraccion);
+	setVisible(false);
 }
 
 string Aliado::getFraseClave() { return fraseClave; }

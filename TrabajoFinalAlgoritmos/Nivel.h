@@ -7,6 +7,10 @@
 using namespace System::Drawing;
 using namespace std;
 
+struct Corredor {
+	int x, y, w, h;
+};
+
 class Nivel {
 private:
 	int numero;
@@ -14,18 +18,29 @@ private:
 	vector<Enemigo*> enemigos;
 	vector<Aliado*> aliados;
 	vector<ObjetoCultural*> objetos;
+	vector<Corredor> corredores;
 	int tiempoLimite;
 	bool salidaActiva;
 	int xInicial;
 	int yInicial;
 
+	string rutaPuerta;
+	int puertaX;
+	int puertaY;
+	int puertaAncho;
+	int puertaAlto;
+
 public:
+	Nivel();
+	~Nivel();
+
 	void cargar();
 	void actualizar();
 	void dibujarTodo(Graphics^ g);
 	bool verificarObjetosCompletos();
 	void activarSalida();
 	void reiniciar();
+	bool esTransitable(int px, int py);
 
 	int getNumero();
 	void setNumero(int n);
@@ -42,4 +57,10 @@ public:
 	void setXInicial(int x);
 	int getYInicial();
 	void setYInicial(int y);
+
+	string getRutaPuerta();
+	int getPuertaX();
+	int getPuertaY();
+	int getPuertaAncho();
+	int getPuertaAlto();
 };

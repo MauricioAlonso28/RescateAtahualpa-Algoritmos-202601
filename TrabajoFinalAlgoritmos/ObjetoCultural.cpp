@@ -2,12 +2,17 @@
 
 ObjetoCultural::ObjetoCultural(int x, int y, string rutaSprite, string nombre, int puntos)
 	: Entidad(x, y, rutaSprite) {
-	// anadir logica
+	this->nombre = nombre;
+	this->descripcionHistorica = "";
+	this->puntos = puntos;
+	this->recogido = false;
+	this->esBonus = false;
 }
 
 int ObjetoCultural::recoger() {
-	// anadir logica
-	return 0;
+	recogido = true;
+	setVisible(false);
+	return puntos;
 }
 
 string ObjetoCultural::getNombre() { return nombre; }

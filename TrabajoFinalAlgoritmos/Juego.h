@@ -17,6 +17,9 @@ private:
 	string nombreJugador;
 
 public:
+	Juego();
+	~Juego();
+
 	void iniciar();
 	void detectarColisiones();
 	void avanzarNivel();

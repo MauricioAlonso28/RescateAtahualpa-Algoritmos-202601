@@ -16,10 +16,19 @@ private:
 	vector<string> spritesDireccion;
 	vector<ObjetoCultural*> inventario;
 
+	bool enMovimiento;
+	int frameActual;
+	int contadorAnim;
+	int frameAncho;
+	int frameAlto;
+
 public:
 	Cusi(int x, int y, vector<string> sprites);
 
 	void mover();
+	void animar();
+	void caminar(Direccion d);
+	void detener();
 	void dibujar(Graphics^ g);
 	void recogerObjeto(ObjetoCultural* obj);
 	void interactuarCon(Aliado* a);

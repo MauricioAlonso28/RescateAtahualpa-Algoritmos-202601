@@ -228,8 +228,7 @@ namespace TodoDelMenu {
 			// post nivel 1
 			if (juego->getEstado() == EstadoJuego::Derrota) {
 				List<String^>^ imgs_lost1 = gcnew List<String^>();
-				//imgs_lost1->Add("img/n1_lost");
-				imgs_lost1->Add("img/n1_fondo");
+				imgs_lost1->Add("img/escenario_lost");
 
 				// escenario YOU LOST *************************
 				List<String^>^ txts_lost1 = gcnew List<String^>();
@@ -254,8 +253,7 @@ namespace TodoDelMenu {
 
 			// escenario YOU WIN ********************************
 			List<String^>^ imgs_win1 = gcnew List<String^>();
-			//imgs_win1->Add("img/n1_win");
-			imgs_win1->Add("img/n1_fondo");
+			imgs_win1->Add("img/escenario_win");
 
 			List<String^>^ txts_win1 = gcnew List<String^>();
 			txts_win1->Add(
@@ -280,9 +278,8 @@ namespace TodoDelMenu {
 			List<String^>^ historia2 = gcnew List<String^>();
 			historia2->Add(nullptr);
 			historia2->Add(nullptr);
-			historia2->Add("img/n2_historia3_op2");
-			//historia2->Add("img/n2_historia4");
-			historia2->Add("img/n1_fondo");
+			historia2->Add("img/n2_historia1");
+			historia2->Add("img/n2_historia2");
 
 			List<String^>^ textos2 = gcnew List<String^>();
 			textos2->Add("NIVEL 2: Los Pasos del Collasuyo");
@@ -296,13 +293,20 @@ namespace TodoDelMenu {
 				"Ahora Cusi deber\u00e1 reunir los fragmentos dispersos, ganarse la confianza de los chasquis "
 				"aliados y atravesar las puertas de piedra antes de que los invasores encuentren "
 				"el conocimiento oculto del Tahuantinsuyo.");
+			textos2->Add(
+				"Cusi ha llegado al Collasuyo. "
+				"Rimaq y Wayra, dos chasquis aliados, desconf\u00edan de cualquier "
+				"mensajero desconocido y solo ayudar\u00e1n a quien demuestre ser digno de su confianza. "
+				"Recupera los tres fragmentos del quipu, consigue la ayuda de ambos para abrir las puertas "
+				"de piedra y evita a los soldados espa\u00f1oles que patrullan los caminos del altiplano."
+			);
 			textos2->Add("");   // n2_historia4 se usa al TERMINAR el nivel, no al inicio
 
 			List<TodoDelMenu::PosTexto>^ posiciones2 = gcnew List<TodoDelMenu::PosTexto>();
 			posiciones2->Add(TodoDelMenu::PosTexto::Titulo);
 			posiciones2->Add(TodoDelMenu::PosTexto::SoloTextoCursiva);
 			posiciones2->Add(TodoDelMenu::PosTexto::Inferior);
-			posiciones2->Add(TodoDelMenu::PosTexto::SoloTexto);
+			posiciones2->Add(TodoDelMenu::PosTexto::Inferior);
 
 			//introduccion nivel 2
 			TodoDelMenu::FormHistoria^ intro2 =
@@ -325,7 +329,7 @@ namespace TodoDelMenu {
 				// escenario YOU LOST
 				List<String^>^ imgs_lost2 = gcnew List<String^>();
 				//imgs_cierre->Add("img/n2_historia4_op2");
-				imgs_lost2->Add("img/n1_fondo");
+				imgs_lost2->Add("img/escenario_lost");
 			
 				List<String^>^ txts_lost2 = gcnew List<String^>();
 				txts_lost2->Add(
@@ -352,7 +356,7 @@ namespace TodoDelMenu {
 
 			// escenario YOU WIN
 			List<String^>^ imgs_win2 = gcnew List<String^>();
-			imgs_win2->Add("img/n1_fondo");
+			imgs_win2->Add("img/escenario_win");
 
 			List<String^>^ txts_win2 = gcnew List<String^>();
 			txts_win2->Add(

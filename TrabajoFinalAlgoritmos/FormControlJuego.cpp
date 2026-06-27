@@ -184,7 +184,7 @@ namespace TrabajoFinalAlgoritmos {
 		delete b; delete ff;
 	}
 
-	void FormControlJuego::dibujarHUD(Graphics^ g) {
+	/*void FormControlJuego::dibujarHUD(Graphics^ g) {
 		Cusi* c = juego->getJugador();
 
 		vector<ObjetoCultural*> objs = nivel->getObjetos();
@@ -208,6 +208,52 @@ namespace TrabajoFinalAlgoritmos {
 		delete oro;
 		delete panel;
 		delete f;
+	}*/
+
+	void FormControlJuego::dibujarHUD(Graphics^ g) {
+		Cusi* c = juego->getJugador();
+
+		vector<ObjetoCultural*> objs = nivel->getObjetos();
+		int total = (int)objs.size();
+		int rec = 0;
+		for (size_t i = 0; i < objs.size(); i++)
+			if (objs[i]->getRecogido()) rec++;
+
+		// Panel de fondo
+		SolidBrush^ panel = gcnew SolidBrush(Color::FromArgb(170, 0, 0, 0));
+		g->FillRectangle(panel, 0, 0, this->ClientSize.Width, 34);
+		delete panel;
+
+		System::Drawing::Font^ fNormal = gcnew System::Drawing::Font("Bahnschrift", 11, FontStyle::Bold);
+		System::Drawing::Font^ fCorazon = gcnew System::Drawing::Font("Segoe UI Symbol", 14, FontStyle::Bold);
+		SolidBrush^ oro = gcnew SolidBrush(Color::Gold);
+		SolidBrush^ rojo = gcnew SolidBrush(Color::FromArgb(220, 80, 0));
+		SolidBrush^ gris = gcnew SolidBrush(Color::FromArgb(80, 80, 80));
+
+		// Corazones (máx 3)
+		int vidaMax = 3;
+		int vidas = c->getVidas();
+		float cx = 12;
+		for (int i = 0; i < vidaMax; i++) {
+			SolidBrush^ color = (i < vidas) ? rojo : gris;
+			g->DrawString(L"\u2665", fCorazon, color, cx, 7);
+			cx += 24;
+		}
+
+		// Puntaje
+		g->DrawString(String::Format("Pts: {0}", c->getPuntaje()), fNormal, oro, 90, 7);
+
+		// Objetos recogidos
+		g->DrawString(String::Format("Objetos: {0}/{1}", rec, total), fNormal, oro, 240, 7);
+
+		// Objetivo
+		String^ objetivo = nivel->getSalidaActiva()
+			? L"\u2192 Llega a la SALIDA!"
+			: String::Format(L"\u2192 Recupera {0} objeto(s) mas", total - rec);
+		g->DrawString(objetivo, fNormal, oro, 420, 7);
+
+		delete oro; delete rojo; delete gris;
+		delete fNormal; delete fCorazon;
 	}
 
 	void FormControlJuego::dibujarMensaje(Graphics^ g) {

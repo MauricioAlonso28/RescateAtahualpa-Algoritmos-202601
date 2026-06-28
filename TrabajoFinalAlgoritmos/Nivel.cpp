@@ -31,65 +31,76 @@ void Nivel::cargar() {
 	tiempoLimite = 0;
 	salidaActiva = false;
 
-	xInicial = 45;
-	yInicial = 188;
+	xInicial = 110;
+	yInicial = 142;
 
 	rutaPuerta = IMG_PUERTA_N1;
-	puertaX = 612;
-	puertaY = 120;
-	puertaAncho = 60;
-	puertaAlto = 60;
+	puertaX = 1138;
+	puertaY = 617;
+	puertaAncho = 84;
+	puertaAlto = 100;
 
-	corredores.push_back(Corredor{ 20, 180, 140, 60 });
-	corredores.push_back(Corredor{ 130, 188, 150, 58 });
-	corredores.push_back(Corredor{ 245, 182, 140, 73 });
-	corredores.push_back(Corredor{ 350, 200, 130, 60 });
-	corredores.push_back(Corredor{ 445, 150, 95, 115 });
-	corredores.push_back(Corredor{ 520, 110, 150, 100 });
-	corredores.push_back(Corredor{ 410, 250, 120, 100 });
-	corredores.push_back(Corredor{ 248, 235, 84, 165 });
-	corredores.push_back(Corredor{ 262, 378, 110, 95 });
+	// Acceso manual al circulo central (cerrado por muro): permite que Cusi
+	// entre desde el camino inferior hasta el centro a recoger la vasija.
+	zonasLibres.push_back(ZonaLibre{ 695, 425, 115, 225 });
 
-	ObjetoCultural* mascara = new ObjetoCultural(285, 147, IMG_MASCARA, "Mascara de oro", PTS_OBJETO);
-	mascara->setAncho(52);
-	mascara->setAlto(56);
+	ObjetoCultural* mascara = new ObjetoCultural(215, 577, IMG_MASCARA, "Mascara de oro", PTS_OBJETO);
+	mascara->setAncho(50);
+	mascara->setAlto(54);
 	mascara->setDescripcionHistorica("Mascara funeraria de oro batido, simbolo del Sol y del linaje sagrado del Inca.");
 	objetos.push_back(mascara);
 
-	ObjetoCultural* vasija = new ObjetoCultural(466, 265, IMG_VASIJA, "Vasija ritual", PTS_OBJETO);
-	vasija->setAncho(62);
-	vasija->setAlto(76);
+	ObjetoCultural* vasija = new ObjetoCultural(703, 437, IMG_VASIJA, "Vasija ritual", PTS_OBJETO);
+	vasija->setAncho(54);
+	vasija->setAlto(66);
 	vasija->setDescripcionHistorica("Quero ceremonial usado en ofrendas de chicha durante las festividades del Inti Raymi.");
 	objetos.push_back(vasija);
 
-	ObjetoCultural* textil = new ObjetoCultural(300, 405, IMG_TEXTIL, "Textil ceremonial", PTS_OBJETO);
-	textil->setAncho(62);
-	textil->setAlto(68);
+	ObjetoCultural* textil = new ObjetoCultural(694, 86, IMG_TEXTIL, "Textil ceremonial", PTS_OBJETO);
+	textil->setAncho(52);
+	textil->setAlto(58);
 	textil->setDescripcionHistorica("Tejido con tecnicas de tokapus que registran linajes y eventos del Imperio.");
 	objetos.push_back(textil);
 
-	Curaca* curaca = new Curaca(118, 122, IMG_CURACA,
+	Curaca* curaca = new Curaca(193, 150, IMG_CURACA,
 		"Cusi, el camino esta vigilado. Evita a los soldados y recupera las ofrendas antes de que las fundan.");
 	curaca->setAncho(40);
 	curaca->setAlto(66);
 	aliados.push_back(curaca);
 
-	SoldadoPatrulla* s1 = new SoldadoPatrulla(250, 188, IMG_SOLDADO_N1, 2, EjePatrulla::Horizontal);
-	s1->setLimites(235, 400);
+	SoldadoPatrulla* s1 = new SoldadoPatrulla(400, 236, IMG_SOLDADO_N1, 2, EjePatrulla::Horizontal);
+	s1->setLimites(280, 560);
 	enemigos.push_back(s1);
 
-	SoldadoPatrulla* s2 = new SoldadoPatrulla(430, 196, IMG_SOLDADO_N1, 3, EjePatrulla::Horizontal);
-	s2->setLimites(405, 560);
+	SoldadoPatrulla* s2 = new SoldadoPatrulla(760, 608, IMG_SOLDADO_N1, 3, EjePatrulla::Horizontal);
+	s2->setLimites(640, 940);
 	enemigos.push_back(s2);
 }
 
 bool Nivel::esTransitable(int px, int py) {
-	for (size_t i = 0; i < corredores.size(); i++) {
-		Corredor& c = corredores[i];
-		if (px >= c.x && px < c.x + c.w && py >= c.y && py < c.y + c.h)
+	for (size_t i = 0; i < zonasLibres.size(); i++) {
+		ZonaLibre& z = zonasLibres[i];
+		if (px >= z.x && px < z.x + z.w && py >= z.y && py < z.y + z.h)
 			return true;
 	}
-	return false;
+
+	Bitmap^ bg = CacheImagenes::obtener(aStr(rutaFondo));
+	int w = bg->Width;
+	int h = bg->Height;
+	int ok = 0;
+	for (int dy = -6; dy <= 6; dy += 6) {
+		for (int dx = -6; dx <= 6; dx += 6) {
+			int x = px + dx;
+			int y = py + dy;
+			if (x < 0 || y < 0 || x >= w || y >= h)
+				continue;
+			Color c = bg->GetPixel(x, y);
+			int r = c.R, g = c.G, b = c.B;
+			if (r > g && g + 6 >= b && r >= 105 && (r - b) >= 25 && (r - b) <= 140)
+				ok++;
+		}
+	}
+	return ok >= 2;
 }
 
 void Nivel::actualizar() {

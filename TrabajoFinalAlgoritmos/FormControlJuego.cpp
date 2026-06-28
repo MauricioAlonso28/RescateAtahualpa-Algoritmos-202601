@@ -174,14 +174,20 @@ namespace TrabajoFinalAlgoritmos {
 	}
 
 	void FormControlJuego::dibujarPuerta(Graphics^ g) {
-		if (!nivel->getSalidaActiva())
-			return;
+		Bitmap^ bmp = CacheImagenes::obtener(aStr(nivel->getRutaPuerta()));
+		int fh = bmp->Height / PUERTA_ESTADOS;
+		int estado = nivel->getSalidaActiva() ? 1 : 0; // 0 cerrada, 1 abierta
+		g->DrawImage(bmp,
+			System::Drawing::Rectangle(nivel->getPuertaX(), nivel->getPuertaY(),
+				nivel->getPuertaAncho(), nivel->getPuertaAlto()),
+			0, estado * fh, bmp->Width, fh, GraphicsUnit::Pixel);
 
-		int cx = nivel->getPuertaX() + nivel->getPuertaAncho() / 2;
-		System::Drawing::Font^ ff = gcnew System::Drawing::Font("Bahnschrift", 10, FontStyle::Bold);
-		SolidBrush^ b = gcnew SolidBrush(Color::Gold);
-		g->DrawString("SALIDA", ff, b, (float)(cx - 26), (float)(nivel->getPuertaY() - 18));
-		delete b; delete ff;
+		if (nivel->getSalidaActiva()) {
+			System::Drawing::Font^ ff = gcnew System::Drawing::Font("Bahnschrift", 11, FontStyle::Bold);
+			SolidBrush^ b = gcnew SolidBrush(Color::Gold);
+			g->DrawString("SALIDA", ff, b, (float)(nivel->getPuertaX()), (float)(nivel->getPuertaY() - 18));
+			delete b; delete ff;
+		}
 	}
 
 	/*void FormControlJuego::dibujarHUD(Graphics^ g) {
@@ -193,17 +199,17 @@ namespace TrabajoFinalAlgoritmos {
 		for (size_t i = 0; i < objs.size(); i++)
 			if (objs[i]->getRecogido()) rec++;
 
-		System::Drawing::Font^ f = gcnew System::Drawing::Font("Bahnschrift", 11, FontStyle::Bold);
+		System::Drawing::Font^ f = gcnew System::Drawing::Font("Bahnschrift", 14, FontStyle::Bold);
 		SolidBrush^ panel = gcnew SolidBrush(Color::FromArgb(150, 0, 0, 0));
 		SolidBrush^ oro = gcnew SolidBrush(Color::Gold);
 
-		g->FillRectangle(panel, 0, 0, this->ClientSize.Width, 30);
-		g->DrawString(String::Format("Vidas: {0}", c->getVidas()), f, oro, 12, 5);
-		g->DrawString(String::Format("Puntaje: {0}", c->getPuntaje()), f, oro, 150, 5);
-		g->DrawString(String::Format("Objetos: {0}/{1}", rec, total), f, oro, 330, 5);
+		g->FillRectangle(panel, 0, 0, this->ClientSize.Width, 36);
+		g->DrawString(String::Format("Vidas: {0}", c->getVidas()), f, oro, 20, 6);
+		g->DrawString(String::Format("Puntaje: {0}", c->getPuntaje()), f, oro, 230, 6);
+		g->DrawString(String::Format("Objetos: {0}/{1}", rec, total), f, oro, 470, 6);
 
 		String^ objetivo = nivel->getSalidaActiva() ? "A la SALIDA!" : "Recupera 3 objetos";
-		g->DrawString(objetivo, f, oro, 500, 5);
+		g->DrawString(objetivo, f, oro, 720, 6);
 
 		delete oro;
 		delete panel;
@@ -230,7 +236,7 @@ namespace TrabajoFinalAlgoritmos {
 		SolidBrush^ rojo = gcnew SolidBrush(Color::FromArgb(220, 80, 0));
 		SolidBrush^ gris = gcnew SolidBrush(Color::FromArgb(80, 80, 80));
 
-		// Corazones (máx 3)
+		// Corazones (mï¿½x 3)
 		int vidaMax = 3;
 		int vidas = c->getVidas();
 		float cx = 12;
@@ -260,8 +266,8 @@ namespace TrabajoFinalAlgoritmos {
 		if (mensajeTicks <= 0 || mensaje == nullptr)
 			return;
 
-		System::Drawing::Font^ f = gcnew System::Drawing::Font("Bahnschrift", 11, FontStyle::Bold);
-		SizeF sz = g->MeasureString(mensaje, f, this->ClientSize.Width - 80);
+		System::Drawing::Font^ f = gcnew System::Drawing::Font("Bahnschrift", 14, FontStyle::Bold);
+		SizeF sz = g->MeasureString(mensaje, f, this->ClientSize.Width - 120);
 		int bw = (int)sz.Width + 30;
 		int bh = (int)sz.Height + 18;
 		int bx = (this->ClientSize.Width - bw) / 2;

@@ -7,7 +7,7 @@
 using namespace System::Drawing;
 using namespace std;
 
-struct Corredor {
+struct ZonaLibre {
 	int x, y, w, h;
 };
 
@@ -18,7 +18,7 @@ private:
 	vector<Enemigo*> enemigos;
 	vector<Aliado*> aliados;
 	vector<ObjetoCultural*> objetos;
-	vector<Corredor> corredores;
+	vector<ZonaLibre> zonasLibres;
 	int tiempoLimite;
 	bool salidaActiva;
 	int xInicial;

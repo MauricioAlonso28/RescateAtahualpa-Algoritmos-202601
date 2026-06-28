@@ -13,7 +13,7 @@ using namespace System::Collections::Generic;
 #define IMG_TEXTIL      "img/textil_objeto.png"
 #define IMG_VASIJA      "img/vasija_objeto.png"
 #define IMG_PUERTA_N1   "img/puerta_final_nivel1.png"
-#define IMG_FONDO_N1    "img/background_nivel_1.png"
+#define IMG_FONDO_N1    "img/fondoNIvel1.png"
 
 // Nivel 2
 #define IMG_N2_HISTORIA1 "img/nivel2/n2_historia1.png"

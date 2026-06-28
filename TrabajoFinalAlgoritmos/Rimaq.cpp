@@ -1,22 +1,47 @@
 #include "Rimaq.h"
 
-Rimaq::Rimaq(int x, int y, string rutaSprite, string frase)
-	: Aliado(x, y, rutaSprite, frase) {
-	// anadir logica
+Rimaq::Rimaq(int x, int y,
+	string rutaSprite,
+	string frase)
+	: Aliado(x, y, rutaSprite, frase)
+{
+	puertaAbierta = false;
 }
 
 bool Rimaq::puedeActivarse(Cusi* c) {
-	// anadir logica
-	return false;
+	return true;
 }
 
 void Rimaq::interactuar(Cusi* c) {
-	// anadir logica
+
+	if (!puertaAbierta &&
+		c->cantidadFragmentosQuipu() >= 1) {
+
+		puertaAbierta = true;
+	}
 }
 
-void Rimaq::abrirPaso() {
-	// anadir logica
+bool Rimaq::getPuertaAbierta() {
+	return puertaAbierta;
 }
 
-Entidad* Rimaq::getPuerta() { return puerta; }
-void Rimaq::setPuerta(Entidad* p) { this->puerta = p; }
+void Rimaq::dibujar(Graphics^ g) {
+
+	if (!getVisible())
+		return;
+
+	Bitmap^ bmp = CacheImagenes::obtener(aStr(getRutaSprite()));
+
+	int columnas = 3; // Rimaq tiene 3 sprites
+	int fw = bmp->Width / columnas;
+	int fh = bmp->Height;
+
+	g->DrawImage(
+		bmp,
+		Rectangle(getX(), getY(), getAncho(), getAlto()),
+		0,
+		0,
+		fw,
+		fh,
+		GraphicsUnit::Pixel);
+}

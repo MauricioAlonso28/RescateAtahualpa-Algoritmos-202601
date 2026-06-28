@@ -4,6 +4,7 @@
 #include "FormCreditos.h"
 #include "FormSalir.h"
 #include "FormNivel1.h"
+#include "FormNivel2.h"
 #include "FormHistoria.h"
 
 namespace TodoDelMenu {
@@ -122,7 +123,7 @@ namespace TodoDelMenu {
 		btnJugar->Text = L"JUGAR";
 		btnInstrucciones->Text = L"INSTRUCCIONES";
 		btnRanking->Text = L"RANKING";
-		btnCreditos->Text = L"CR�DITOS";
+		btnCreditos->Text = L"CREDITOS";
 		btnSalir->Text = L"SALIR";
 
 		// Tama�o
@@ -172,24 +173,83 @@ namespace TodoDelMenu {
 
 		System::Void btnJugar_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			// Historia del Nivel 1 (storyboard)
-			List<String^>^ historia = gcnew List<String^>();
-			historia->Add("img/n1_historia1");
-			historia->Add("img/n1_historia2");
-			historia->Add("img/n1_historia3");
-			historia->Add("img/n1_historia4");
-			historia->Add("img/n1_historia5");
+
+			// Historia nivel 1
+
+			List<String^>^ historia1 = gcnew List<String^>();
+
+			historia1->Add("img/n1_historia1");
+			historia1->Add("img/n1_historia2");
+			historia1->Add("img/n1_historia3");
+			historia1->Add("img/n1_historia4");
+			historia1->Add("img/n1_historia5");
 
 			this->Hide();
 
-			FormHistoria^ intro = gcnew FormHistoria(historia);
-			intro->ShowDialog();
-
-			// Escenario jugable
 			Juego* juego = new Juego();
-			TrabajoFinalAlgoritmos::FormNivel1^ nivel = gcnew TrabajoFinalAlgoritmos::FormNivel1(juego);
-			nivel->ShowDialog();
-			delete nivel;
+			/*
+			
+			
+			
+			
+			FormHistoria^ intro1 = gcnew FormHistoria(historia1);
+			intro1->ShowDialog();
+
+			delete intro1;
+
+			// Nivel 1
+
+			TrabajoFinalAlgoritmos::FormNivel1^ nivel1 =
+				gcnew TrabajoFinalAlgoritmos::FormNivel1(juego);
+
+			nivel1->ShowDialog();
+
+			delete nivel1;
+
+			if (juego->getEstado() != EstadoJuego::Victoria)
+			{
+				delete juego;
+				this->Show();
+				return;
+			}
+
+			// Historia nivel 2
+
+			List<String^>^ historia2 = gcnew List<String^>();
+
+			historia2->Add("img/nivel2/n2_historia1");
+			historia2->Add("img/nivel2/n2_historia2");
+			historia2->Add("img/nivel2/n2_historia3");
+			historia2->Add("img/nivel2/n2_historia4");
+			historia2->Add("img/nivel2/n2_historia5");
+
+			FormHistoria^ intro2 = gcnew FormHistoria(historia2);
+
+			intro2->ShowDialog();
+
+			delete intro2;
+
+			*/
+			// Nivel 2
+
+			TrabajoFinalAlgoritmos::FormNivel2^ nivel2 =
+				gcnew TrabajoFinalAlgoritmos::FormNivel2(juego);
+
+			nivel2->ShowDialog();
+
+			delete nivel2;
+
+			if (juego->getEstado() != EstadoJuego::Victoria)
+			{
+				delete juego;
+				this->Show();
+				return;
+			}
+
+			// Historia nivel 3
+
+			// Nivel 3
+
 			delete juego;
 
 			this->Show();

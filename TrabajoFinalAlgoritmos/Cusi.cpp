@@ -100,9 +100,21 @@ void Cusi::reaparecer(int x, int y) {
 }
 
 int Cusi::cantidadFragmentosQuipu() {
-	return 0;
-}
 
+	int cantidad = 0;
+
+	for (size_t i = 0; i < inventario.size(); i++) {
+
+		string nombre = inventario[i]->getNombre();
+
+		if (nombre == "Parte del Quipu 1" ||
+			nombre == "Parte del Quipu 2" ||
+			nombre == "Parte del Quipu 3")
+			cantidad++;
+	}
+
+	return cantidad;
+}
 void Cusi::sumarPuntos(int p) {
 	puntaje += p;
 	if (puntaje < 0)

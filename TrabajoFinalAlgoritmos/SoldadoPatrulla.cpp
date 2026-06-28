@@ -35,7 +35,7 @@ void SoldadoPatrulla::mover() {
 		if (getY() <= limMin) { setY(limMin); sentido = 1; }
 		else if (getY() + getAlto() >= limMax) { setY(limMax - getAlto()); sentido = -1; }
 	}
-	animar();
+	animar();   
 }
 
 void SoldadoPatrulla::animar() {
@@ -52,14 +52,41 @@ void SoldadoPatrulla::dibujar(Graphics^ g) {
 	Bitmap^ bmp = CacheImagenes::obtener(aStr(getRutaSprite()));
 
 	int ox = frameActual * frameAncho;
-	int oy = SOLDADO_FILA_CAMINAR * frameAlto;
+	//int oy = SOLDADO_FILA_CAMINAR * frameAlto;
+	int fila;
+
+	if (ejePatrulla == EjePatrulla::Horizontal)
+	{
+		if (sentido == 1)
+			fila = 1; // derecha
+		else
+			fila = 2; // izquierda
+	}
+	else
+	{
+		if (sentido == 1)
+			fila = 3; // abajo
+		else
+			fila = 0; // arriba
+	}
+
+	int oy = fila * frameAlto;
 
 	float x = (float)getX();
 	float y = (float)getY();
 	float w = (float)getAncho();
 	float h = (float)getAlto();
 
-	bool espejar = (ejePatrulla == EjePatrulla::Horizontal && sentido > 0);
+	g->DrawImage(
+		bmp,
+		Rectangle((int)x, (int)y, (int)w, (int)h),
+		ox,
+		oy,
+		frameAncho,
+		frameAlto,
+		GraphicsUnit::Pixel);
+	/*
+		bool espejar = (ejePatrulla == EjePatrulla::Horizontal && sentido > 0);
 
 	cli::array<PointF>^ dest = gcnew cli::array<PointF>(3);
 	if (espejar) {
@@ -76,6 +103,10 @@ void SoldadoPatrulla::dibujar(Graphics^ g) {
 	g->DrawImage(bmp, dest,
 		RectangleF((float)ox, (float)oy, (float)frameAncho, (float)frameAlto),
 		GraphicsUnit::Pixel);
+	
+	
+	*/
+
 }
 
 EjePatrulla SoldadoPatrulla::getEjePatrulla() { return ejePatrulla; }

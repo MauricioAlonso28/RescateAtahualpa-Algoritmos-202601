@@ -1,6 +1,8 @@
 #pragma once
 #include "Juego.h"
 #include "Config.h"
+#include "Rimaq.h"
+#include "Wayra.h"
 
 namespace TrabajoFinalAlgoritmos {
 
@@ -60,6 +62,7 @@ namespace TrabajoFinalAlgoritmos {
 		void form_Load(Object^ sender, EventArgs^ e);
 		void dibujarHUD(Graphics^ g);
 		void dibujarPuerta(Graphics^ g);
+		void dibujarPuertasIntermedias(Graphics^ g);
 		void dibujarMensaje(Graphics^ g);
 		void finalizarNivel(bool gano);
 

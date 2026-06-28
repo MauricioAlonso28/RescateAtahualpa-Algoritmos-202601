@@ -1,21 +1,21 @@
 #pragma once
 #include "Aliado.h"
 #include "Cusi.h"
-#include <string>
-using namespace System::Drawing;
-using namespace std;
+#include "Config.h"
 
 class Wayra : public Aliado {
+
 private:
-	bool senalDeRimaq;
+	bool puertaAbierta;
 
 public:
+
 	Wayra(int x, int y, string rutaSprite, string frase);
 
-	void recibirSenal();
 	bool puedeActivarse(Cusi* c);
 	void interactuar(Cusi* c);
 
-	bool getSenalDeRimaq();
-	void setSenalDeRimaq(bool s);
+	bool getPuertaAbierta();
+
+	virtual void dibujar(Graphics^ g);
 };

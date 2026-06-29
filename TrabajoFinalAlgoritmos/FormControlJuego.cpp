@@ -70,24 +70,92 @@ namespace TrabajoFinalAlgoritmos {
 
 		vector<ObjetoCultural*> objs = nivel->getObjetos();
 		for (size_t i = 0; i < objs.size(); i++) {
-			if (!objs[i]->getRecogido() && c->colisionaCon(objs[i])) {
+			int dx = (c->getX() + c->getAncho() / 2) -
+				(objs[i]->getX() + objs[i]->getAncho() / 2);
+
+			int dy = (c->getY() + c->getAlto() / 2) -
+				(objs[i]->getY() + objs[i]->getAlto() / 2);
+
+			const int RADIO_OBJETO = 30;
+
+			if (!objs[i]->getRecogido() &&
+				dx * dx + dy * dy <= RADIO_OBJETO * RADIO_OBJETO) {
+
+				bool esBonusVida =
+					objs[i]->getNombre() == "Objeto Sagrado";
+
 				c->recogerObjeto(objs[i]);
+
+				if (esBonusVida)
+					c->recuperarVida();
+
 				String^ msg = String::Format("{0}: {1}",
-					aStr(objs[i]->getNombre()), aStr(objs[i]->getDescripcionHistorica()));
+					aStr(objs[i]->getNombre()),
+					aStr(objs[i]->getDescripcionHistorica()));
+
 				mostrarMensaje(msg, 110);
 			}
 		}
 
 		vector<Aliado*> alis = nivel->getAliados();
 		for (size_t i = 0; i < alis.size(); i++) {
+
 			Aliado* a = alis[i];
-			if (a->getVisible() && a->puedeActivarse(c)) {
-				int dx = (c->getX() + c->getAncho() / 2) - (a->getX() + a->getAncho() / 2);
-				int dy = (c->getY() + c->getAlto() / 2) - (a->getY() + a->getAlto() / 2);
-				if (dx * dx + dy * dy <= RADIO_INTERACCION * RADIO_INTERACCION) {
-					String^ frase = aStr(a->getFraseClave());
+
+			if (a->getVisible()) {
+
+				int dx = (c->getX() + c->getAncho() / 2)
+					- (a->getX() + a->getAncho() / 2);
+
+				int dy = (c->getY() + c->getAlto() / 2)
+					- (a->getY() + a->getAlto() / 2);
+
+				if (dx * dx + dy * dy <=
+					RADIO_INTERACCION * RADIO_INTERACCION) {
+
 					a->interactuar(c);
-					mostrarMensaje(frase, 150);
+
+					// RIMAQ
+					Rimaq* r = dynamic_cast<Rimaq*>(a);
+
+					if (r != nullptr) {
+
+						if (r->getPuertaAbierta()) {
+
+							nivel->abrirPuertaRimaq();
+
+							mostrarMensaje(
+								"Rimaq: Excelente. El camino esta abierto.",
+								150);
+						}
+						else {
+
+							mostrarMensaje(
+								"Rimaq: Encuentra el primer fragmento del quipu.",
+								150);
+						}
+					}
+
+					// WAYRA
+					Wayra* w = dynamic_cast<Wayra*>(a);
+
+					if (w != nullptr) {
+
+						if (w->getPuertaAbierta()) {
+
+							nivel->abrirPuertaWayra();
+
+							mostrarMensaje(
+								"Wayra: Muy bien. El segundo camino esta abierto.",
+								150);
+						}
+						else {
+
+							mostrarMensaje(
+								"Wayra: Recupera el segundo fragmento del quipu.",
+								150);
+						}
+					}
 				}
 			}
 		}
@@ -117,9 +185,15 @@ namespace TrabajoFinalAlgoritmos {
 				mostrarMensaje("La puerta del tambo se ha iluminado. Llega a ella!", 110);
 			}
 
-			Rectangle puerta(nivel->getPuertaX(), nivel->getPuertaY(),
-				nivel->getPuertaAncho(), nivel->getPuertaAlto());
-			if (puerta.IntersectsWith(c->getRectangulo())) {
+			int dxPuerta = (c->getX() + c->getAncho() / 2) - (nivel->getPuertaX() + nivel->getPuertaAncho() / 2);
+
+			int dyPuerta = (c->getY() + c->getAlto() / 2) - (nivel->getPuertaY() + nivel->getPuertaAlto() / 2);
+
+			const int RADIO_PUERTA = 30;
+
+			if (dxPuerta * dxPuerta + dyPuerta * dyPuerta
+				<= RADIO_PUERTA * RADIO_PUERTA) {
+
 				finalizarNivel(true);
 				return;
 			}
@@ -165,6 +239,8 @@ namespace TrabajoFinalAlgoritmos {
 
 		nivel->dibujarTodo(g);
 
+		dibujarPuertasIntermedias(g);
+
 		dibujarPuerta(g);
 
 		juego->getJugador()->dibujar(g);
@@ -174,20 +250,33 @@ namespace TrabajoFinalAlgoritmos {
 	}
 
 	void FormControlJuego::dibujarPuerta(Graphics^ g) {
-		Bitmap^ bmp = CacheImagenes::obtener(aStr(nivel->getRutaPuerta()));
-		int fh = bmp->Height / PUERTA_ESTADOS;
-		int estado = nivel->getSalidaActiva() ? 1 : 0; // 0 cerrada, 1 abierta
-		g->DrawImage(bmp,
-			System::Drawing::Rectangle(nivel->getPuertaX(), nivel->getPuertaY(),
-				nivel->getPuertaAncho(), nivel->getPuertaAlto()),
-			0, estado * fh, bmp->Width, fh, GraphicsUnit::Pixel);
 
-		if (nivel->getSalidaActiva()) {
-			System::Drawing::Font^ ff = gcnew System::Drawing::Font("Bahnschrift", 11, FontStyle::Bold);
-			SolidBrush^ b = gcnew SolidBrush(Color::Gold);
-			g->DrawString("SALIDA", ff, b, (float)(nivel->getPuertaX()), (float)(nivel->getPuertaY() - 18));
-			delete b; delete ff;
-		}
+		Bitmap^ bmp = CacheImagenes::obtener(
+			aStr(nivel->getRutaPuerta()));
+
+		int columnas = 1;
+		int filas = 2;
+
+		int frameAncho = bmp->Width / columnas;
+		int frameAlto = bmp->Height / filas;
+
+		int fila = 0; // puerta cerrada
+
+		if (nivel->getSalidaActiva())
+			fila = 1; // puerta abierta
+
+		g->DrawImage(
+			bmp,
+			Rectangle(
+				nivel->getPuertaX(),
+				nivel->getPuertaY(),
+				nivel->getPuertaAncho(),
+				nivel->getPuertaAlto()),
+			0,
+			fila * frameAlto,
+			frameAncho,
+			frameAlto,
+			GraphicsUnit::Pixel);
 	}
 
 	/*void FormControlJuego::dibujarHUD(Graphics^ g) {
@@ -216,50 +305,97 @@ namespace TrabajoFinalAlgoritmos {
 		delete f;
 	}*/
 
+
+
+
+
 	void FormControlJuego::dibujarHUD(Graphics^ g) {
 		Cusi* c = juego->getJugador();
 
 		vector<ObjetoCultural*> objs = nivel->getObjetos();
-		int total = (int)objs.size();
-		int rec = 0;
-		for (size_t i = 0; i < objs.size(); i++)
-			if (objs[i]->getRecogido()) rec++;
 
-		// Panel de fondo
+		int total = 0;
+		int rec = 0;
+
+		// Contar solo los objetos normales
+		for (size_t i = 0; i < objs.size(); i++) {
+
+			if (objs[i]->getNombre() != "Objeto Sagrado") {
+
+				total++;
+
+				if (objs[i]->getRecogido())
+					rec++;
+			}
+		}
+
+		// Fondo del HUD
 		SolidBrush^ panel = gcnew SolidBrush(Color::FromArgb(170, 0, 0, 0));
 		g->FillRectangle(panel, 0, 0, this->ClientSize.Width, 34);
 		delete panel;
 
-		System::Drawing::Font^ fNormal = gcnew System::Drawing::Font("Bahnschrift", 11, FontStyle::Bold);
-		System::Drawing::Font^ fCorazon = gcnew System::Drawing::Font("Segoe UI Symbol", 14, FontStyle::Bold);
+		System::Drawing::Font^ fNormal =
+			gcnew System::Drawing::Font("Bahnschrift", 11, FontStyle::Bold);
+
+		System::Drawing::Font^ fCorazon =
+			gcnew System::Drawing::Font("Segoe UI Symbol", 14, FontStyle::Bold);
+
 		SolidBrush^ oro = gcnew SolidBrush(Color::Gold);
 		SolidBrush^ rojo = gcnew SolidBrush(Color::FromArgb(220, 80, 0));
 		SolidBrush^ gris = gcnew SolidBrush(Color::FromArgb(80, 80, 80));
+		SolidBrush^ amarillo = gcnew SolidBrush(Color::Yellow);
 
-		// Corazones (m�x 3)
+		// Corazones (máx. 3 vidas)
 		int vidaMax = 3;
 		int vidas = c->getVidas();
+
 		float cx = 12;
+
+		// Cantidad de vidas extra obtenidas
+		int extras = max(0, vidas - 3);
+
 		for (int i = 0; i < vidaMax; i++) {
-			SolidBrush^ color = (i < vidas) ? rojo : gris;
+
+			SolidBrush^ color = gris;
+
+			if (i < vidas) {
+
+				// Los corazones extra obtenidos se pintan amarillos
+				if (i < extras)
+					color = amarillo;
+				else
+					color = rojo;
+			}
+
 			g->DrawString(L"\u2665", fCorazon, color, cx, 7);
 			cx += 24;
 		}
 
 		// Puntaje
-		g->DrawString(String::Format("Pts: {0}", c->getPuntaje()), fNormal, oro, 90, 7);
+		g->DrawString(
+			String::Format("Pts: {0}", c->getPuntaje()),
+			fNormal, oro, 90, 7);
 
 		// Objetos recogidos
-		g->DrawString(String::Format("Objetos: {0}/{1}", rec, total), fNormal, oro, 240, 7);
+		g->DrawString(
+			String::Format("Objetos: {0}/{1}", rec, total),
+			fNormal, oro, 240, 7);
 
-		// Objetivo
+		// Objetivo actual
 		String^ objetivo = nivel->getSalidaActiva()
 			? L"\u2192 Llega a la SALIDA!"
-			: String::Format(L"\u2192 Recupera {0} objeto(s) mas", total - rec);
+			: String::Format(L"\u2192 Recupera {0} objeto(s) mas",
+				max(0, total - rec));
+
 		g->DrawString(objetivo, fNormal, oro, 420, 7);
 
-		delete oro; delete rojo; delete gris;
-		delete fNormal; delete fCorazon;
+		delete oro;
+		delete rojo;
+		delete gris;
+		delete amarillo;
+		delete fNormal;
+		delete fCorazon;
+
 	}
 
 	void FormControlJuego::dibujarMensaje(Graphics^ g) {
@@ -305,5 +441,50 @@ namespace TrabajoFinalAlgoritmos {
 		}
 
 		this->Close();
+	}
+
+	void FormControlJuego::dibujarPuertasIntermedias(Graphics^ g) {
+
+		if (nivel == nullptr || nivel->getNumero() != 2)
+			return;
+
+		Bitmap^ bmp = CacheImagenes::obtener(aStr(IMG_PUERTA_N2));
+
+		int frameAncho = bmp->Width;
+		int frameAlto = bmp->Height / 2;
+
+		// Puerta de Rimaq
+		if (!nivel->getPuertaRimaqAbierta()) {
+
+			g->DrawImage(
+				bmp,
+				Rectangle(
+					nivel->getPuertaRimaqX(),
+					nivel->getPuertaRimaqY(),
+					120,
+					120),
+				0,
+				0,
+				frameAncho,
+				frameAlto,
+				GraphicsUnit::Pixel);
+		}
+
+		// Puerta de Wayra
+		if (!nivel->getPuertaWayraAbierta()) {
+
+			g->DrawImage(
+				bmp,
+				Rectangle(
+					nivel->getPuertaWayraX(),
+					nivel->getPuertaWayraY(),
+					100,
+					100),
+				0,
+				0,
+				frameAncho,
+				frameAlto,
+				GraphicsUnit::Pixel);
+		}
 	}
 }

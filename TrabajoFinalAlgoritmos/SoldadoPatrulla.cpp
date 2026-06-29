@@ -49,32 +49,38 @@ void SoldadoPatrulla::animar() {
 void SoldadoPatrulla::dibujar(Graphics^ g) {
 	if (!getVisible())
 		return;
+
 	Bitmap^ bmp = CacheImagenes::obtener(aStr(getRutaSprite()));
 
 	int ox = frameActual * frameAncho;
-	int oy = SOLDADO_FILA_CAMINAR * frameAlto;
+	int fila;
 
-	float x = (float)getX();
-	float y = (float)getY();
-	float w = (float)getAncho();
-	float h = (float)getAlto();
-
-	bool espejar = (ejePatrulla == EjePatrulla::Horizontal && sentido > 0);
-
-	cli::array<PointF>^ dest = gcnew cli::array<PointF>(3);
-	if (espejar) {
-		dest[0] = PointF(x + w, y);
-		dest[1] = PointF(x, y);
-		dest[2] = PointF(x + w, y + h);
+	if (ejePatrulla == EjePatrulla::Horizontal) {
+		if (sentido == 1)
+			fila = 1; // derecha
+		else
+			fila = 2; // izquierda
 	}
 	else {
-		dest[0] = PointF(x, y);
-		dest[1] = PointF(x + w, y);
-		dest[2] = PointF(x, y + h);
+		if (sentido == 1)
+			fila = 3; // abajo
+		else
+			fila = 0; // arriba
 	}
 
-	g->DrawImage(bmp, dest,
-		RectangleF((float)ox, (float)oy, (float)frameAncho, (float)frameAlto),
+	int oy = fila * frameAlto;
+
+	g->DrawImage(
+		bmp,
+		Rectangle(
+			getX(),
+			getY(),
+			getAncho(),
+			getAlto()),
+		ox,
+		oy,
+		frameAncho,
+		frameAlto,
 		GraphicsUnit::Pixel);
 }
 

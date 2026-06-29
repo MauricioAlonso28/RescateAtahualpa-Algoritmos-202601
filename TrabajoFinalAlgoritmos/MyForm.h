@@ -171,7 +171,7 @@ namespace TodoDelMenu {
 		//Jugar
 		System::Void btnJugar_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			// Historia del Nivel 1 (storyboard) *********************************
+			// Historia del Nivel 1
 
 			List<String^>^ historia1 = gcnew List<String^>();
 			historia1->Add(nullptr);
@@ -251,7 +251,7 @@ namespace TodoDelMenu {
 				return;
 			}
 
-			// escenario YOU WIN ********************************
+			// escenario YOU WIN 
 			List<String^>^ imgs_win1 = gcnew List<String^>();
 			imgs_win1->Add("img/escenario_win");
 
@@ -272,14 +272,12 @@ namespace TodoDelMenu {
 				gcnew TodoDelMenu::FormHistoria(imgs_win1, txts_win1, pos_win1);
 			win1->ShowDialog();
 
-			//***********************************************
-			// 
 			// Historia del Nivel 2 (storyboard)
 			List<String^>^ historia2 = gcnew List<String^>();
 			historia2->Add(nullptr);
 			historia2->Add(nullptr);
-			historia2->Add("img/n2_historia1");
-			historia2->Add("img/n2_historia2");
+			historia2->Add("img/nivel2/n2_historia1");
+			historia2->Add("img/nivel2/n2_historia2");
 
 			List<String^>^ textos2 = gcnew List<String^>();
 			textos2->Add("NIVEL 2: Los Pasos del Collasuyo");
@@ -324,7 +322,8 @@ namespace TodoDelMenu {
 			delete nivel2;
 
 			// post nivel 2
-			if (juego2->getEstado() == EstadoJuego::Victoria) {
+			if (juego2->getEstado() == EstadoJuego::Derrota)
+			{
 
 				// escenario YOU LOST
 				List<String^>^ imgs_lost2 = gcnew List<String^>();

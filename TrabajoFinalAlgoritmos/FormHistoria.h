@@ -142,7 +142,7 @@ namespace TodoDelMenu {
 		System::Void FormHistoria_Load(System::Object^ sender, System::EventArgs^ e)
 		{
 			lblContinuar = gcnew Label();
-			lblContinuar->Text = L"[ Presiona cualquier tecla ]";
+			lblContinuar->Text = L"[ Presiona ESPACIO ]";
 			lblContinuar->Font = gcnew Drawing::Font("Bahnschrift", 11, FontStyle::Italic);
 			lblContinuar->ForeColor = Color::FromArgb(200, 212, 175, 55);
 			lblContinuar->BackColor = Color::Transparent;
@@ -257,10 +257,10 @@ namespace TodoDelMenu {
 			delete pincel; delete fuente;
 		}
 
-		System::Void FormHistoria_KeyDown(System::Object^ sender,
-			System::Windows::Forms::KeyEventArgs^ e)
+		System::Void FormHistoria_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e)
 		{
-			accionAvanzar();
+			if (e->KeyCode == Keys::Space)
+				accionAvanzar();
 		}
 
 		System::Void FormHistoria_Click(System::Object^ sender, System::EventArgs^ e)

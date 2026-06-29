@@ -11,6 +11,10 @@ struct ZonaLibre {
 	int x, y, w, h;
 };
 
+struct Corredor {
+	int x, y, w, h;
+};
+
 class Nivel {
 private:
 	int numero;
@@ -19,6 +23,7 @@ private:
 	vector<Aliado*> aliados;
 	vector<ObjetoCultural*> objetos;
 	vector<ZonaLibre> zonasLibres;
+	vector<Corredor> corredores;
 	int tiempoLimite;
 	bool salidaActiva;
 	int xInicial;
@@ -30,11 +35,23 @@ private:
 	int puertaAncho;
 	int puertaAlto;
 
+	bool puertaRimaqAbierta;
+	bool puertaWayraAbierta;
+
+	int puertaRimaqX;
+	int puertaRimaqY;
+
+	int puertaWayraX;
+	int puertaWayraY;
+
 public:
 	Nivel();
 	~Nivel();
 
 	void cargar();
+	void cargarNivel1();
+	void cargarNivel2();
+	void cargarNivel3();
 	void actualizar();
 	void dibujarTodo(Graphics^ g);
 	bool verificarObjetosCompletos();
@@ -63,4 +80,19 @@ public:
 	int getPuertaY();
 	int getPuertaAncho();
 	int getPuertaAlto();
+
+	bool getPuertaRimaqAbierta();
+	bool getPuertaWayraAbierta();
+
+	void abrirPuertaRimaq();
+	void abrirPuertaWayra();
+
+	int getPuertaRimaqX();
+	int getPuertaRimaqY();
+
+	int getPuertaWayraX();
+	int getPuertaWayraY();
+
+	void setPuertaRimaq(int x, int y);
+	void setPuertaWayra(int x, int y);
 };
